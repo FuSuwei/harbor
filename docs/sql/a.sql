@@ -25,10 +25,17 @@ create TABLE harbor_categories(
    PRIMARY KEY (id)
 )ENGINE = INNODB DEFAULT CHARSET = 'utf8' comment ='种类表';
 
-create TABLE harbor_article2tag2categories(
+create TABLE harbor_article_tag(
     id int(10) UNSIGNED not null AUTO_INCREMENT,
     article_id int(10) UNSIGNED,
     tag_id int(10) UNSIGNED,
-    categories_id int(10) UNSIGNED,
     PRIMARY KEY (id)
-)ENGINE = INNODB DEFAULT CHARSET = 'utf8' comment ='多对多表';
+)ENGINE = INNODB DEFAULT CHARSET = 'utf8' comment ='文章对标签表';
+
+
+create TABLE harbor_article_categories(
+   id int(10) UNSIGNED not null AUTO_INCREMENT,
+   article_id int(10) UNSIGNED,
+   categories_id int(10) UNSIGNED,
+   PRIMARY KEY (id)
+)ENGINE = INNODB DEFAULT CHARSET = 'utf8' comment ='文章对种类表';

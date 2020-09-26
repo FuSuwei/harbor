@@ -10,7 +10,7 @@ type GlobalConfig struct {
 	DataBase *mysql `toml:"db"`
 }
 
-var filePath = "/home/nidaye/文档/go-code/harbor/docs/toml/config.toml"
+var filePath = "D:/GoProject/harbor/docs/toml/config.toml"
 
 var globalConfig GlobalConfig
 

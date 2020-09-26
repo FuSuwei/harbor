@@ -7,6 +7,7 @@ import (
 
 func main() {
 	c := models.Article{}
-	a, b := c.GetArticle()
-	fmt.Println(a, b)
+	c.ID = 1
+	c.GetArticle()
+	fmt.Println(c)
 }
