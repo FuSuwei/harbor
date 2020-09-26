@@ -26,7 +26,7 @@ create TABLE harbor_tag
 ) ENGINE = INNODB
   DEFAULT CHARSET = 'utf8' comment ='标签表';
 
-create TABLE harbor_categories
+create TABLE harbor_category
 (
     id   int(10) UNSIGNED not null AUTO_INCREMENT,
     name varchar(50)      not null COMMENT '种类名称',
