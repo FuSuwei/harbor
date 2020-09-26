@@ -10,7 +10,7 @@ import (
 var db *gorm.DB
 
 type Model struct {
-	Uuid int `gorm:"primary_key;type:char(32);not null" json:"uuid"`
+	Uuid string `gorm:"primary_key;type:char(32);not null" json:"uuid"`
 }
 
 func init() {

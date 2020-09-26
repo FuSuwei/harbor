@@ -36,7 +36,7 @@ func (article *Article) GetArticleList(limit, offset int) *[]Article {
 }
 
 func (article *Article) GetArticle() {
-	db.First(article)
+	db.First(article, "uuid")
 	db.Model(article).Related(&article.Tags, "Tags").Related(&article.Content, "Content")
 	return
 }
