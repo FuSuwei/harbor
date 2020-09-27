@@ -29,7 +29,7 @@ func (article *Article) BeforeCreate(scope *gorm.Scope) error {
 	return err
 }
 
-func (article *Article) GetArticleList(limit, offset int) *[]Article {
+func GetArticleList(limit, offset int) *[]Article {
 	var articleList []Article
 	db.Preload("Categories").Limit(limit).Offset(offset).Find(&articleList)
 	return &articleList

@@ -1,3 +1,6 @@
+#debug or release
+run_mode = "debug"
+
 [db]
 type = "mysql"
 host = "127.0.0.1:3306"
@@ -5,3 +8,12 @@ user = "root"
 password = "123456"
 database = "harbor"
 tablePrefix = "harbor_"
+
+[app]
+page_size = 10
+jwt_secret = "23347$040412"
+
+[server]
+http_port = 8000
+read_timeout = 60
+write_timeout = 60

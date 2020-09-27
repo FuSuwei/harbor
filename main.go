@@ -1,11 +1,24 @@
 package main
 
-import "harbor/models"
+import (
+	"fmt"
+	"net/http"
 
-func main(){
-	//var a models.Article
-	//a.Uuid = "10539e5da53b4a97928d3f2faf508ff4"
-	//a.GetArticleList(1,0)
+	"harbor/routers"
 
-	models.GetCountByTag()
+	"harbor/pkg/toml"
+)
+
+func main() {
+	router := routers.InitRouter()
+	setting := toml.GetServerConfig()
+	s := &http.Server{
+		Addr:           fmt.Sprintf(":%d", setting.HttpPort),
+		Handler:        router,
+		ReadTimeout:    setting.ReadTimeout,
+		WriteTimeout:   setting.WriteTimeout,
+		MaxHeaderBytes: 1 << 20,
+	}
+
+	s.ListenAndServe()
 }

@@ -4,19 +4,19 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
     <title>Hugo Themes</title>
-    <link rel="stylesheet" href="../css/font.css">
-    <link rel="stylesheet" href="../css/main.css">
+    <link rel="stylesheet" href="statics/css/font.css">
+    <link rel="stylesheet" href="statics/css/main.css">
     <link rel="stylesheet" id="css">
-    <script src="../js/jquery.min.js"></script>
+    <script src="statics/js/jquery.min.js"></script>
+    <script src="statics/js/index/index.js"></script>
 </head>
 <body>
-
 
 <header>
     <nav class="navbar">
         <div class="nav">
             <a href="" class="nav-logo">
-                <img src="../image/icon.png" width="50" height="50" alt="Logo">
+                <img src="statics/image/icon.png" width="50" height="50" alt="Logo">
             </a>
             <ul class="nav-links">
                 <li>
@@ -43,7 +43,6 @@
     </div>
 </header>
 
-
 <div class="container" role="main">
     <div class="posts-list">
 
@@ -64,12 +63,10 @@
 
             <div class="postmeta">
     <span class="meta-post">
-  <i class="fa fa-calendar-alt"></i>&nbsp;Mar 11, 2019
-  
-    &nbsp;&nbsp;&nbsp;<i class="fa fa-folder-open"></i>&nbsp;
-
-      <a href="https://themes.gohugo.io//theme/harbor//categories/themes/">themes</a>&nbsp;
-    
+        <i class="fa fa-calendar-alt" style="padding-right: 5px"></i>
+        <i style="padding-right: 10px">2020-9-29</i>
+        <i class="fa fa-folder-open"></i>
+        <a href="https://themes.gohugo.io//theme/harbor//categories/themes/">themes</a>&nbsp;
       <a href="https://themes.gohugo.io//theme/harbor//categories/syntax/">syntax</a>&nbsp;
     
   
@@ -164,20 +161,5 @@
         <p></p>
     </div>
 </footer>
-<script>
-    function changeStyle4() {
-        var butt = document.getElementById("dark-mode-toggle");
-        var obj = document.getElementById("css");
-        calssName = butt.className;
-        if (calssName.indexOf("fa-moon") > 0) {
-            butt.className = "fas fa-sun fa-lg";
-            obj.setAttribute("href", "../css/sunbackground.css");
-        }else{
-            butt.className = "fas fa-moon fa-lg";
-            obj.setAttribute("href", "../css/moonbackground.css");
-        }
-    }
-</script>
-
 </body>
 </html>
