@@ -12,7 +12,6 @@ func InitRouter() *gin.Engine {
 	r.Use(gin.Logger())
 	r.Use(gin.Recovery())
 	gin.SetMode(toml.GetRunMode())
-
 	r.Static("statics", "./statics")
 	r.LoadHTMLGlob("statics/html/*.html")
 

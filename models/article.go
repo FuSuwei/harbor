@@ -18,6 +18,7 @@ type Article struct {
 	Tags       []Tag      `json:"tags" gorm:"many2many:article_tag;"`
 	Categories []Category `json:"categories" gorm:"many2many:article_categories;"`
 	Content    Content    `json:"content" gorm:"foreignkey:content_uuid"`
+	count      int
 }
 
 func (article *Article) BeforeCreate(scope *gorm.Scope) error {
@@ -38,5 +39,10 @@ func GetArticleList(limit, offset int) *[]Article {
 func (article *Article) GetArticle() {
 	db.First(article, "uuid")
 	db.Model(article).Related(&article.Tags, "Tags").Related(&article.Content, ).Related(&article.Categories, "Categories")
+	return
+}
+
+func GetArticleCount() (count int) {
+	db.Table("harbor_article").Count(&count)
 	return
 }

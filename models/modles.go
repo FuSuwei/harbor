@@ -22,11 +22,11 @@ func init() {
 		log.Fatal(err)
 	}
 	err = db.DB().Ping()
-	if err != nil{
+	if err != nil {
 		log.Fatalln(err)
 	}
-	gorm.DefaultTableNameHandler = func (db *gorm.DB, defaultTableName string) string  {
-		return mysql.TablePrefix + defaultTableName;
+	gorm.DefaultTableNameHandler = func(db *gorm.DB, defaultTableName string) string {
+		return mysql.TablePrefix + defaultTableName
 	}
 	db.SingularTable(true)
 	db.LogMode(true)
