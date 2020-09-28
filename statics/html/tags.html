@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="statics/css/main.css">
     <link rel="stylesheet" id="css">
     <script src="statics/js/jquery.min.js"></script>
-    <script src="statics/js/index/index.js"></script>
+
 </head>
 <body>
 
@@ -37,26 +37,16 @@
     <div class="intro-header">
         <div class="container">
             <div class="page-heading">
-                <h1>Hugo Themes</h1>
+                <h1>Tags</h1>
             </div>
         </div>
     </div>
 </header>
 
 <div class="container" role="main">
-    <div class="posts-list">
+    <article class="post-preview">
 
-    </div>
-
-    <ul class="pager">
-        <li class="next">
-            <a class="nextPage" href="#" >NEXT →</a>
-        </li>
-        <li class="previous">
-            <a href="#" class="prevPage" style="pointer-events: none; opacity: 0.5">← PREV</a>
-        </li>
-    </ul>
-
+    </article>
 </div>
 
 <footer>
@@ -81,5 +71,38 @@
         <p></p>
     </div>
 </footer>
+<script>
+    $.ajax({
+        type: "GET",
+        url: "api/v1/getTagsList",
+        success: function (result) {
+            if (result.code == 200) {
+                var dataList = $.parseJSON(result["data"]);
+                addTags(dataList);
+                console.log(result)
+            } else {
+                alert(result["msg"] + "\n" + result["errors"])
+            }
+        }
+    });
+
+    function getTag() {
+        return `<div class="terms">
+            <h4 class="term-name">
+                <a href=""></a>
+                <span class="badge"></span>
+            </h4>
+        </div>`
+    }
+
+    function addTags(tagsList) {
+        for(i=0;i<tagsList.length;i++){
+            var tags = $(getTag());
+            tags.find('a').text(tagsList[i]["name"]).attr("href", "/tags/"+tagsList[i]["name"]);
+            tags.find(".badge").text(tagsList[i]["count"]);
+            $(".post-preview").append(tags);
+        }
+    }
+</script>
 </body>
 </html>

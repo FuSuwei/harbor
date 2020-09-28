@@ -7,8 +7,8 @@ type Category struct {
 
 
 type countArticleByCategory struct {
-	Name  string
-	Count int
+	Name  string `json:"name"`
+	Count int	`json:"count"`
 }
 
 func GetCountByCategory() (categoryCount []*countArticleByCategory) {

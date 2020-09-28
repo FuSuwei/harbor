@@ -1,3 +1,5 @@
+var currentPage = 1;
+
 function changeStyle4() {
     var butt = document.getElementById("dark-mode-toggle");
     var obj = document.getElementById("css");
@@ -17,7 +19,7 @@ function addArticle(dataList) {
         article.find(".post-title").text(dataList[i]["title"]);
         article.find(".summary").text(dataList[i]["summary"]);
         article.find(".time").text(formatDate(parseInt(dataList[i]["created_on"])));
-        for (var j=0; j<dataList[i]["categories"].length;j++){
+        for (var j = 0; j < dataList[i]["categories"].length; j++) {
             var a = $("<a href=\"\"></a>");
             a.attr("href", "www.baidu.com");
             a.html(dataList[i]["categories"][j]["name"]);
@@ -29,11 +31,11 @@ function addArticle(dataList) {
 }
 
 function formatDate(time) {
-    var now = new Date(time*1000);
-    var year=now.getFullYear();  //取得4位数的年份
-    var month=now.getMonth()+1;  //取得日期中的月份，其中0表示1月，11表示12月
-    var date=now.getDate();      //返回日期月份中的天数（1到31）
-    return year+"-"+month+"-"+date;
+    var now = new Date(time * 1000);
+    var year = now.getFullYear();  //取得4位数的年份
+    var month = now.getMonth() + 1;  //取得日期中的月份，其中0表示1月，11表示12月
+    var date = now.getDate();      //返回日期月份中的天数（1到31）
+    return year + "-" + month + "-" + date;
 }
 
 function getArticle() {
@@ -63,23 +65,83 @@ function getArticle() {
         </div>
 </article>`
 }
-$(document).ready(function(){
+
+$(document).ready(function () {
     $(".nextPage").click(function () {
         $.ajax({
             type: "GET",
             url: "api/v1/getArticleList",
+            data: {page: currentPage + 1},
             success: function (result) {
                 if (result.code == 200) {
+                    if (result["isNextPage"] != true) {
+                        setNextPageAttr(true)
+                    }
+                    setPrevPageAttr(false);
                     var dataList = $.parseJSON(result["data"]);
                     $(".post-preview").remove();
                     addArticle(dataList);
+                    currentPage += 1
                 } else {
                     alert(result["msg"] + "\n" + result["errors"])
                 }
             }
         })
     });
+    $(".prevPage").click(function () {
+        $.ajax({
+            type: "GET",
+            url: "api/v1/getArticleList",
+            data: {page: currentPage - 1},
+            success: function (result) {
+                if (currentPage == 1) {
+                    setPrevPageAttr(true)
+                }
+                setNextPageAttr(false);
+                if (result.code == 200) {
+                    var dataList = $.parseJSON(result["data"]);
+                    $(".post-preview").remove();
+                    addArticle(dataList);
+                    currentPage -= 1
+                } else {
+                    alert(result["msg"] + "\n" + result["errors"])
+                }
+            }
+        })
+    });
+});
 
-})
+$.ajax({
+    type: "GET",
+    url: "api/v1/getArticleList",
+    data: {page: currentPage},
+    success: function (result) {
+        if (result.code == 200) {
+            if (result["isNextPage"] != true) {
+                setNextPageAttr(true)
+            }
+            var dataList = $.parseJSON(result["data"]);
+            addArticle(dataList);
+        } else {
+            alert(result["msg"] + "\n" + result["errors"])
+        }
+    }
+});
 
 
+function setNextPageAttr(flag) {
+    if (flag) {
+        $(".nextPage").attr("style", "pointer-events: none; opacity: 0.5")
+    } else {
+        $(".nextPage").removeAttr("style")
+    }
+}
+
+
+function setPrevPageAttr(flag) {
+    if (flag) {
+        $(".prevPage").attr("style", "pointer-events: none; opacity: 0.5")
+    } else {
+        $(".prevPage").removeAttr("style")
+    }
+}

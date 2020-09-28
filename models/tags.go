@@ -6,8 +6,8 @@ type Tag struct {
 }
 
 type countArticleByTag struct {
-	Name  string
-	Count int
+	Name  string `json:"name"`
+	Count int    `json:"count"`
 }
 
 func GetCountByTag() (tagCount []*countArticleByTag) {
