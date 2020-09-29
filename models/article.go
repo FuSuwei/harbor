@@ -36,10 +36,12 @@ func GetArticleList(limit, offset int) *[]Article {
 	return &articleList
 }
 
-func (article *Article) GetArticle() {
-	db.First(article, "uuid")
-	db.Model(article).Related(&article.Tags, "Tags").Related(&article.Content, ).Related(&article.Categories, "Categories")
-	return
+func GetArticle(uuid string) *Article {
+	var article Article
+	article.Uuid = uuid
+	db.First(&article)
+	db.Model(&article).Related(&article.Tags, "Tags").Related(&article.Content, ).Related(&article.Categories, "Categories")
+	return &article
 }
 
 func GetArticleCount() (count int) {

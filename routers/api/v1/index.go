@@ -15,3 +15,8 @@ func Tags(c *gin.Context)  {
 func Categories(c *gin.Context)  {
 	c.HTML(http.StatusOK, "categories.html", nil)
 }
+
+func ArticleIndex(c *gin.Context){
+	articleUuid := c.Param("articleUuid")
+	c.HTML(http.StatusOK, "article.html", articleUuid)
+}

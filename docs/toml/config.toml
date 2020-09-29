@@ -3,15 +3,15 @@ run_mode = "debug"
 
 [db]
 type = "mysql"
-#host = "192.168.0.146:3306"
-host = "127.0.0.1:3306"
+host = "192.168.0.146:3306"
+#host = "127.0.0.1:3306"
 user = "root"
 password = "123456"
 database = "harbor"
 tablePrefix = "harbor_"
 
 [app]
-page_size = 10
+page_size = 5
 jwt_secret = "23347$040412"
 
 [server]

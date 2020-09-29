@@ -1,24 +1,13 @@
 var currentPage = 1;
 
-function changeStyle4() {
-    var butt = document.getElementById("dark-mode-toggle");
-    var obj = document.getElementById("css");
-    calssName = butt.className;
-    if (calssName.indexOf("fa-moon") > 0) {
-        butt.className = "fas fa-sun fa-lg";
-        obj.setAttribute("href", "statics/css/sunbackground.css");
-    } else {
-        butt.className = "fas fa-moon fa-lg";
-        obj.setAttribute("href", "statics/css/moonbackground.css");
-    }
-}
-
 function addArticle(dataList) {
+
     for (var i = 0; i < dataList.length; i++) {
         var article = $(getArticle());
         article.find(".post-title").text(dataList[i]["title"]);
         article.find(".summary").text(dataList[i]["summary"]);
         article.find(".time").text(formatDate(parseInt(dataList[i]["created_on"])));
+        article.find(".info").attr("href", "/article/" + dataList[i]["uuid"]);
         for (var j = 0; j < dataList[i]["categories"].length; j++) {
             var a = $("<a href=\"\"></a>");
             a.attr("href", "www.baidu.com");
@@ -30,26 +19,18 @@ function addArticle(dataList) {
     }
 }
 
-function formatDate(time) {
-    var now = new Date(time * 1000);
-    var year = now.getFullYear();  //取得4位数的年份
-    var month = now.getMonth() + 1;  //取得日期中的月份，其中0表示1月，11表示12月
-    var date = now.getDate();      //返回日期月份中的天数（1到31）
-    return year + "-" + month + "-" + date;
-}
-
 function getArticle() {
     return `
 <article class="post-preview">
-        <a href="">
+        <a href="" class="info">
             <h2 class="post-title"></h2>
         </a>
         <div class="post-entry">
 
-            <p></p>
+            <p ></p>
             <p class="summary"></p>
             <p></p>
-            <a href="" class="post-read-more">Read More</a>
+            <a href="" class="post-read-more info">Read More</a>
 
         </div>
 
@@ -67,14 +48,15 @@ function getArticle() {
 }
 
 $(document).ready(function () {
+    var BaseUrl = $("#baseUrl").attr("baseUrl");
     $(".nextPage").click(function () {
         $.ajax({
             type: "GET",
-            url: "api/v1/getArticleList",
+            url: BaseUrl,
             data: {page: currentPage + 1},
             success: function (result) {
-                if (result.code == 200) {
-                    if (result["isNextPage"] != true) {
+                if (result.code === 200) {
+                    if (result["isNextPage"] !== true) {
                         setNextPageAttr(true)
                     }
                     setPrevPageAttr(false);
@@ -91,14 +73,14 @@ $(document).ready(function () {
     $(".prevPage").click(function () {
         $.ajax({
             type: "GET",
-            url: "api/v1/getArticleList",
+            url: BaseUrl,
             data: {page: currentPage - 1},
             success: function (result) {
-                if (currentPage == 1) {
+                if (currentPage === 2) {
                     setPrevPageAttr(true)
                 }
                 setNextPageAttr(false);
-                if (result.code == 200) {
+                if (result.code === 200) {
                     var dataList = $.parseJSON(result["data"]);
                     $(".post-preview").remove();
                     addArticle(dataList);
@@ -109,23 +91,22 @@ $(document).ready(function () {
             }
         })
     });
-});
-
-$.ajax({
-    type: "GET",
-    url: "api/v1/getArticleList",
-    data: {page: currentPage},
-    success: function (result) {
-        if (result.code == 200) {
-            if (result["isNextPage"] != true) {
-                setNextPageAttr(true)
+    $.ajax({
+        type: "GET",
+        url: BaseUrl,
+        data: {page: currentPage},
+        success: function (result) {
+            if (result.code === 200) {
+                if (result["isNextPage"] !== true) {
+                    setNextPageAttr(true)
+                }
+                var dataList = $.parseJSON(result["data"]);
+                addArticle(dataList);
+            } else {
+                alert(result["msg"] + "\n" + result["errors"])
             }
-            var dataList = $.parseJSON(result["data"]);
-            addArticle(dataList);
-        } else {
-            alert(result["msg"] + "\n" + result["errors"])
         }
-    }
+    });
 });
 
 

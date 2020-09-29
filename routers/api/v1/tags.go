@@ -6,6 +6,7 @@ import (
 	"harbor/models"
 	"harbor/pkg/app"
 	"harbor/pkg/e"
+	"net/http"
 )
 
 func GetTagsList(c *gin.Context)  {
@@ -16,4 +17,10 @@ func GetTagsList(c *gin.Context)  {
 		context.Response(200, e.JSON_DECODE_ERROR, "", err.Error())
 	}
 	context.Response(200, 200, string(v), "")
+}
+
+
+func IndexByTag(c *gin.Context){
+	tagName := c.Param("tagName")
+	c.HTML(http.StatusOK, "indexTag.html", tagName)
 }

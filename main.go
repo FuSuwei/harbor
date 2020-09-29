@@ -2,11 +2,9 @@ package main
 
 import (
 	"fmt"
-	"net/http"
-
-	"harbor/routers"
-
 	"harbor/pkg/toml"
+	"harbor/routers"
+	"net/http"
 )
 
 func main() {
@@ -22,4 +20,3 @@ func main() {
 
 	s.ListenAndServe()
 }
-

@@ -6,6 +6,7 @@ import (
 	"harbor/models"
 	"harbor/pkg/app"
 	"harbor/pkg/e"
+	"net/http"
 )
 
 func GetCategoriesList(c *gin.Context)  {
@@ -16,4 +17,9 @@ func GetCategoriesList(c *gin.Context)  {
 		context.Response(200, e.JSON_DECODE_ERROR, "", err.Error())
 	}
 	context.Response(200, 200, string(v), "")
+}
+
+func IndexByCategory(c *gin.Context){
+	categoryName := c.Param("categoryName")
+	c.HTML(http.StatusOK, "indexCategory.html", categoryName)
 }
