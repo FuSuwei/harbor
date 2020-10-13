@@ -14,7 +14,6 @@ function addArticle(dataList) {
             a.html(dataList[i]["categories"][j]["name"]);
             article.find(".meta-post").append(a)
         }
-
         $(".posts-list").append(article);
     }
 }

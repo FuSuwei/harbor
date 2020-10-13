@@ -9,9 +9,6 @@
     <meta id="uid" articleUuid="{{ . }}">
     <script src="/statics/js/jquery.min.js"></script>
     <script src="/statics/js/main.js"></script>
-    <link href="http://cdn.bootcss.com/highlight.js/8.0/styles/monokai_sublime.min.css" rel="stylesheet">
-    <script src="http://cdn.bootcss.com/highlight.js/8.0/highlight.min.js"></script>
-    <script src="https://cdn.bootcss.com/marked/0.8.1/marked.min.js"></script>
 </head>
 <body>
 
@@ -81,33 +78,13 @@
         success: function (result) {
             if (result.code == 200) {
                 data = $.parseJSON(result["data"]);
-                document.getElementById('content').innerHTML = marked(data["content"]["content"]);
+                document.getElementById('content').innerHTML = data["content"]["content"];
             }else{
                 alert(result["msg"] + "\n" + result["errors"])
             }
         }
     })
 </script>
-<script>
-    hljs.initHighlightingOnLoad();
-    var rendererMD = new marked.Renderer();
-    marked.setOptions({
-        renderer: rendererMD,
-        gfm: true,
-        tables: true,
-        breaks: false,
-        pedantic: false,
-        sanitize: false,
-        smartLists: true,
-        smartypants: false
-    });
 
-    marked.setOptions({
-        highlight: function (code) {
-            return hljs.highlightAuto(code).value;
-        }
-    });
-
-</script>
 </body>
 </html>
