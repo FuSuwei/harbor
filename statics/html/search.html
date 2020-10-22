@@ -90,6 +90,7 @@
                 data : JSON.stringify({"search": $('#searchBox').val()}),
                 success: function (result) {
                     if (result.code === 200) {
+                        $('.posts-list').html("");
                         var dataList = $.parseJSON(result["data"]);
                         addArticle(dataList);
                     } else {
