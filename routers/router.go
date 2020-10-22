@@ -19,6 +19,7 @@ func InitRouter() *gin.Engine {
 	getHtml := r.Group("/")
 	{
 		getHtml.GET("/index.html", v1.Index)
+		getHtml.GET("/search", v1.Search)
 		getHtml.GET("/tags", v1.Tags)
 		getHtml.GET("/categories", v1.Categories)
 		getHtml.GET("/tags/:tagName", v1.IndexByTag)
@@ -35,6 +36,7 @@ func InitRouter() *gin.Engine {
 		apiV1.GET("/categories/:tagName/getArticleList", v1.GetArticleListByCategory)
 		apiV1.GET("/tags/:tagName/getArticleList", v1.GetArticleListByTag)
 		apiV1.GET("/article/:articleUuid", v1.GetArticle)
+		apiV1.POST("/search", v1.GetArticleBySearch)
 	}
 
 	return r

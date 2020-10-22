@@ -20,3 +20,7 @@ func ArticleIndex(c *gin.Context){
 	articleUuid := c.Param("articleUuid")
 	c.HTML(http.StatusOK, "article.html", articleUuid)
 }
+
+func Search(c *gin.Context){
+	c.HTML(http.StatusOK, "search.html", nil)
+}

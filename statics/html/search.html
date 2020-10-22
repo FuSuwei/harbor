@@ -6,9 +6,10 @@
     <link rel="stylesheet" href="/statics/css/font.css">
     <link rel="stylesheet" href="/statics/css/main.css">
     <link rel="stylesheet" id="css">
-    <meta id="uid" articleUuid="{{ . }}">
     <script src="/statics/js/jquery.min.js"></script>
+    <script src="/statics/js/index/index.js"></script>
     <script src="/statics/js/main.js"></script>
+    <meta baseUrl="/api/v1/tags/{{ . }}/getArticleList" id="baseUrl">
 </head>
 <body>
 
@@ -19,6 +20,7 @@
                 <img src="/statics/image/icon.png" width="50" height="50" alt="Logo">
             </a>
             <ul class="nav-links">
+
                 <li><a href="" name="About"><i
                                 class="fas fa-user fa-lg"></i></a></li>
                 <li><a href="/tags" name="Tags"><i class="fas fa-tag fa-lg"></i></a></li>
@@ -34,15 +36,23 @@
     <div class="intro-header">
         <div class="container">
             <div class="page-heading">
-                <h1>Hugo Themes</h1>
+                <h1>Search</h1>
             </div>
         </div>
     </div>
 </header>
 
 <div class="container" role="main">
-    <div id="content"></div>
+    <article class="article">
+        <div class="searchBoxContainer">
+            <input type="text" id="searchBox" class="searchBox" placeholder="Search...">
+        </div>
+        <div id="searchResults" class="searchResults"></div>
+    </article>
 
+    <div class="posts-list">
+
+    </div>
 </div>
 
 <footer>
@@ -67,21 +77,28 @@
         <p></p>
     </div>
 </footer>
-<script>
-    var uid = $("#uid").attr("articleUuid");
-    $.ajax({
-        type: "GET",
-        url: "/api/v1/article/" + uid,
-        success: function (result) {
-            if (result.code == 200) {
-                data = $.parseJSON(result["data"]);
-                document.getElementById('content').innerHTML = data["content"]["content"];
-            }else{
-                alert(result["msg"] + "\n" + result["errors"])
-            }
-        }
-    })
-</script>
 
+<script language='javascript'>
+
+    $('#searchBox').keypress(function(event){
+        var keynum = (event.keyCode ? event.keyCode : event.which);
+        if(keynum == '13'){
+            $.ajax({
+                type: "post",
+                url : "/api/v1/search",
+                contentType: "application/json;charset=UTF-8",
+                data : JSON.stringify({"search": $('#searchBox').val()}),
+                success: function (result) {
+                    if (result.code === 200) {
+                        var dataList = $.parseJSON(result["data"]);
+                        addArticle(dataList);
+                    } else {
+                        alert(result["msg"] + "\n" + result["errors"])
+                    }
+                }
+            })
+        }
+    });
+</script>
 </body>
 </html>

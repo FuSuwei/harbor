@@ -44,6 +44,12 @@ func GetArticle(uuid string) *Article {
 	return &article
 }
 
+func GetArticleBySearch(title string) *[]Article {
+	var articleList []Article
+	db.Preload("Categories").Where("title LIKE ?", "%"+ title +"%").Limit(5).Offset(0).Find(&articleList)
+	return &articleList
+}
+
 func GetArticleCount() (count int) {
 	db.Table("harbor_article").Count(&count)
 	return
