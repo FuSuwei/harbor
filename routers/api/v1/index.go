@@ -2,6 +2,8 @@ package v1
 
 import (
 	"github.com/gin-gonic/gin"
+	"io/ioutil"
+	"log"
 	"net/http"
 )
 
@@ -26,5 +28,13 @@ func Search(c *gin.Context){
 }
 
 func GetPhoto(c *gin.Context){
-	c.HTML(http.StatusOK, "photo.html", nil)
+	var imgs []string
+	fileInfoList, err := ioutil.ReadDir("./statics/img")
+	if err != nil {
+		log.Fatal(err)
+	}
+	for i := range fileInfoList {
+		imgs = append(imgs, fileInfoList[i].Name())
+	}
+	c.HTML(http.StatusOK, "photo.html", gin.H{"imgs": imgs})
 }
