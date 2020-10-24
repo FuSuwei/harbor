@@ -25,6 +25,8 @@ func InitRouter() *gin.Engine {
 		getHtml.GET("/tags/:tagName", v1.IndexByTag)
 		getHtml.GET("/categories/:categoryName", v1.IndexByCategory)
 		getHtml.GET("/article/:articleUuid", v1.ArticleIndex)
+		getHtml.GET("/photo", v1.GetPhoto)
+
 	}
 
 

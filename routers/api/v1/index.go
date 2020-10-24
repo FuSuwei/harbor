@@ -24,3 +24,7 @@ func ArticleIndex(c *gin.Context){
 func Search(c *gin.Context){
 	c.HTML(http.StatusOK, "search.html", nil)
 }
+
+func GetPhoto(c *gin.Context){
+	c.HTML(http.StatusOK, "photo.html", nil)
+}
