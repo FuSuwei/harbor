@@ -25,6 +25,6 @@ func GetArticleListBuTag(limit, offset int, tagName string) *[]Article {
 		rows.Scan(&uuid)
 		articleUuid = append(articleUuid, uuid)
 	}
-	db.Preload("Categories").Where(articleUuid).Find(&articleList)
+	db.Order("created_on").Preload("Categories").Where(articleUuid).Find(&articleList)
 	return &articleList
 }

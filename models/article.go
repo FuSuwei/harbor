@@ -32,7 +32,7 @@ func (article *Article) BeforeCreate(scope *gorm.Scope) error {
 
 func GetArticleList(limit, offset int) *[]Article {
 	var articleList []Article
-	db.Preload("Categories").Limit(limit).Offset(offset).Find(&articleList)
+	db.Order("created_on").Preload("Categories").Limit(limit).Offset(offset).Find(&articleList)
 	return &articleList
 }
 
