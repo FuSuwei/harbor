@@ -10,7 +10,7 @@ function addArticle(dataList) {
         article.find(".info").attr("href", "/article/" + dataList[i]["uuid"]);
         for (var j = 0; j < dataList[i]["categories"].length; j++) {
             var a = $("<a href=\"\"></a>");
-            a.attr("href", "www.baidu.com");
+            a.attr("href", "/tags/" + dataList[i]["categories"][j]["name"]);
             a.html(dataList[i]["categories"][j]["name"]);
             article.find(".meta-post").append(a)
         }

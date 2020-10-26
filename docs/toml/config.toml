@@ -3,11 +3,13 @@ run_mode = "debug"
 
 [db]
 type = "mysql"
-#host = "192.168.0.146:3306"
-#host = "127.0.0.1:3306"
-host = "172.17.0.1:3306"
+#host = "192.168.0.146:3306"  # ubuntu
+#host = "127.0.0.1:3306"  # 本地
+#host = "172.17.0.1:3306"  # docker
+host = "39.97.212.82:3306" # 服务器
+
 user = "root"
-password = "123456"
+password = "fsw.1996"
 database = "harbor"
 tablePrefix = "harbor_"
 
